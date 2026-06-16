@@ -1,0 +1,9 @@
+# Domain durch deine ersetzen, z. B. bot.meinprojekt.de
+# Variante B (ohne eigene Domain): 1-2-3-4.nip.io  (IP mit Bindestrichen)
+bot.example.com {
+    # E-Mail für Let's-Encrypt-Benachrichtigungen (optional, empfohlen)
+    tls noelpmax@gmail.com
+
+    # Alle Anfragen an den Bot-Container weiterreichen.
+    reverse_proxy bot:8080
+}
