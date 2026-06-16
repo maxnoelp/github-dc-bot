@@ -1,25 +1,11 @@
+# Für lokales Testen oder eine Coolify "Docker Compose"-Deployment.
+# Reverse-Proxy + TLS macht Coolify selbst – hier KEIN Caddy/Traefik nötig.
 services:
   bot:
     build: .
     restart: unless-stopped
     env_file: .env
-    # Kein Port nach außen – nur Caddy spricht intern mit dem Bot.
+    # Coolify routet seinen Proxy auf diesen Port (in der UI als
+    # "Ports Exposes" = 8080 eintragen). Lokal ggf. ports: ["8080:8080"].
     expose:
       - "8080"
-
-  caddy:
-    image: caddy:2
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - bot
-
-volumes:
-  caddy_data:
-  caddy_config:
